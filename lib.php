@@ -15,24 +15,34 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Navigation link for the Staff View of the Student Dashboard
  *
  * @package    local_gustaffview
- * @copyright  2023
- * @author
+ * @copyright  2023 Greg Pedder <greg.pedder@glasgow.ac.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/**
+ * Add the link to the Staff View of the Student Dashboard to the course
+ * navigation - but only if you have the capability.
+ *
+ * @param $parentnode
+ * @param $course
+ * @param $context
+ * @return void
+ */
 function local_gustaffview_extend_navigation_course($parentnode, $course, $context) {
-    global $USER;
-    $cntstaff = block_newgu_spdetails_external::checkrole($USER->id, $course->id);
+    if (has_capability('local/gustaffview:staffview', $context)) {
+        global $USER;
+        $cntstaff = block_newgu_spdetails_external::checkrole($USER->id, $course->id);
 
-    // if (!has_capability('local/gustaffview:view', $context)) {
-    if ($cntstaff!=1) {
-        return;
+        if ($cntstaff != 1) {
+            return;
+        }
+        $url = new moodle_url('/local/gustaffview/sduserdetails.php', ['courseid' => $course->id]);
+        $name = get_string('staffview', 'local_gustaffview');
+        $icon = new pix_icon('t/grades', '');
+        $parentnode->add($name, $url, navigation_node::NODETYPE_LEAF, 'gustaffview', null, $icon);
+        $parentnode->make_active();
     }
-    $url = new moodle_url('/local/gustaffview/sduserdetails.php', ['courseid' => $course->id]);
-    $name = get_string('pluginname', 'local_gustaffview');
-    $icon = new pix_icon('t/grades', '');
-    $parentnode->add($name, $url, navigation_node::NODETYPE_LEAF, 'gustaffview', null, $icon);
-    $parentnode->make_active();
 }
