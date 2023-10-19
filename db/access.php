@@ -15,19 +15,27 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * GU Staff View
+ * GU Staff View capabilities.
+ * This may need to be expanded to include Manager also, but this is tbc.
  *
- * @copyright
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @package
+ * @package    report_coursediagnostic
+ * @copyright  2023 Greg Pedder <greg.pedder@glasgow.ac.uk>
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$capabilities = array(
-    'local/gustaffview:staffview' => array(
-        'captype'      => 'read',
-        'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes'   => array()
-    )
-);
+$capabilities = [
+
+    'local/gustaffview:staffview' => [
+        'riskbitmask' => RISK_PERSONAL,
+        'captype' => 'read',
+        'contextlevel' => CONTEXT_COURSE,
+        'archetypes' => [
+            'teacher' => CAP_ALLOW,
+            'editingteacher' => CAP_ALLOW
+        ],
+    ]
+];
+
+$deprecatedcapabilities = [];
