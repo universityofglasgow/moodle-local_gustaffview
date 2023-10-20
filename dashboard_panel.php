@@ -24,6 +24,7 @@
  *
  * @package    local_gustaffview
  * @author     Greg Pedder <greg.pedder@glasgow.ac.uk>
+ * @author     Shubhendra Diophode <shubhendra.doiphode@gmail.com>
  * @copyright  2023 University of Glasgow
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

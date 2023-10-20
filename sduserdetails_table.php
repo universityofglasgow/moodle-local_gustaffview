@@ -15,8 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * This class implements Moodle's Table API in order to provide assessment
+ * data for a given student. Called via the standard web service approach.
  *
  * @package    local_gustaffview
+ * @author     Shubhendra Diophode <shubhendra.doiphode@gmail.com>
  * @author     Greg Pedder <greg.pedder@glasgow.ac.uk>
  * @copyright  2023 University of Glasgow
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -109,25 +112,6 @@ class sduserdetailscurrent_table extends table_sql
                 break;
         }
 
-//        if ($tdr==4 && $ts=="duedate") {
-//            $tdirdd_icon = ' <i class="fa fa-caret-down"></i>';
-//            $tdrnew = 3;
-//        }
-//        if ($tdr==3 && $ts=="duedate") {
-//            $tdirdd_icon = ' <i class="fa fa-caret-up"></i>';
-//            $tdrnew = 4;
-//        }
-//
-//        $tdirat_icon = '';
-//        if ($tdr==4 && $ts=="assessmenttype") {
-//            $tdirat_icon = ' <i class="fa fa-caret-down"></i>';
-//            $tdrnew = 3;
-//        }
-//        if ($tdr==3 && $ts=="assessmenttype") {
-//            $tdirat_icon = ' <i class="fa fa-caret-up"></i>';
-//            $tdrnew = 4;
-//        }
-
         $headers = [
             get_string('assessment'),
             '<a data-page="' . $page . '" data-ts="assessmenttype" data-tdr="' . $tdrnew . '" href="#">' . get_string('assessmenttype','block_newgu_spdetails') . $tdirat_icon . '</a>',
@@ -142,6 +126,10 @@ class sduserdetailscurrent_table extends table_sql
 
     }
 
+    /**
+     * @param $values
+     * @return void
+     */
     function col_assessment($values){
         global $CFG;
         $itemname = $values->itemname;
@@ -159,6 +147,10 @@ class sduserdetailscurrent_table extends table_sql
         }
     }
 
+    /**
+     * @param $values
+     * @return mixed
+     */
     function col_assessmenttype($values){
 
         global $DB;
@@ -179,10 +171,18 @@ class sduserdetailscurrent_table extends table_sql
 
     }
 
+    /**
+     * @param $values
+     * @return mixed
+     */
     function col_itemmodule($values){
         return $values->itemmodule;
     }
 
+    /**
+     * @param $values
+     * @return string
+     */
     function col_duedate($values){
 
         global $DB;
@@ -233,6 +233,10 @@ class sduserdetailscurrent_table extends table_sql
         }
     }
 
+    /**
+     * @param $values
+     * @return string
+     */
     function col_includedingcat($values){
         global $DB;
         $courseid = $values->courseid;
@@ -254,6 +258,10 @@ class sduserdetailscurrent_table extends table_sql
         }
     }
 
+    /**
+     * @param $values
+     * @return string
+     */
     function col_status($values){
 
         $userid = $values->userid;
@@ -294,6 +302,10 @@ class sduserdetailscurrent_table extends table_sql
 
     }
 
+    /**
+     * @param $values
+     * @return mixed
+     */
     function col_grade($values){
 
         $userid = $values->userid;
@@ -308,6 +320,10 @@ class sduserdetailscurrent_table extends table_sql
         return $gradetodisplay;
     }
 
+    /**
+     * @param $values
+     * @return mixed
+     */
     function col_feedback($values){
 
         $userid = $values->userid;

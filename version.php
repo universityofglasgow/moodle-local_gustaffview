@@ -18,7 +18,9 @@
  * Plugin version and other meta-data are defined here.
  *
  * @package     local_gustaffview
- * @copyright   2019
+ * @author      Shubhendra Diophode <shubhendra.doiphode@gmail.com>
+ * @author      Greg Pedder <greg.pedder@glasgow.ac.uk>
+ * @copyright   2023 University of Glasgow
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -26,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_gustaffview';
 $plugin->release = '0.1.0';
-$plugin->version = 2022052015;
+$plugin->version = 2022052016;
 $plugin->requires = 2016112900;
 $plugin->maturity = MATURITY_STABLE;
 

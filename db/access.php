@@ -18,9 +18,11 @@
  * GU Staff View capabilities.
  * This may need to be expanded to include Manager also, but this is tbc.
  *
- * @package    report_coursediagnostic
- * @copyright  2023 Greg Pedder <greg.pedder@glasgow.ac.uk>
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     local_gustaffview
+ * @author      Shubhendra Diophode <shubhendra.doiphode@gmail.com>
+ * @author      Greg Pedder <greg.pedder@glasgow.ac.uk>
+ * @copyright   2023 University of Glasgow
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();

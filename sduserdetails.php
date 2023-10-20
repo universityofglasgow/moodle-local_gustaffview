@@ -22,9 +22,11 @@
  * display the assessments of the student. The results are to be
  * both sortable, and paged if necessary.
  *
- * @package   local_gustaffview
- * @copyright 2023 Greg Pedder <greg.pedder@glasgow.ac.uk>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    local_gustaffview
+ * @author     Shubhendra Diophode <shubhendra.doiphode@gmail.com>
+ * @author     Greg Pedder <greg.pedder@glasgow.ac.uk>
+ * @copyright  2023 University of Glasgow
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once('../../config.php');

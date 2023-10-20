@@ -18,7 +18,9 @@
  * Navigation link for the Staff View of the Student Dashboard
  *
  * @package    local_gustaffview
- * @copyright  2023 Greg Pedder <greg.pedder@glasgow.ac.uk>
+ * @author     Shubhendra Diophode <shubhendra.doiphode@gmail.com>
+ * @author     Greg Pedder <greg.pedder@glasgow.ac.uk>
+ * @copyright  2023 University of Glasgow
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

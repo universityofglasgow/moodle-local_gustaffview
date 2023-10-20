@@ -18,8 +18,9 @@
  * Plugin strings are defined here.
  *
  * @package     local_gustaffview
- * @category    string
- * @copyright   2023
+ * @author      Shubhendra Diophode <shubhendra.doiphode@gmail.com>
+ * @author      Greg Pedder <greg.pedder@glasgow.ac.uk>
+ * @copyright   2023 University of Glasgow
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
