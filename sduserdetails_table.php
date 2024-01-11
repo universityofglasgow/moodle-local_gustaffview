@@ -46,6 +46,7 @@ class sduserdetailscurrent_table extends table_sql
         $columns = [
             'assessment',
             'assessmenttype',
+            'weight',
             'itemmodule',
             'duedate',
             'includedingcat',
@@ -115,6 +116,7 @@ class sduserdetailscurrent_table extends table_sql
         $headers = [
             get_string('assessment'),
             '<a data-page="' . $page . '" data-ts="assessmenttype" data-tdr="' . $tdrnew . '" href="#">' . get_string('assessmenttype','block_newgu_spdetails') . $tdirat_icon . '</a>',
+            get_string('weight', 'block_newgu_spdetails'),
             '<a data-page="' . $page . '" data-ts="itemmodule" data-tdr="' . $tdrnew . '" href="#">' . get_string('activity') . $tdiract_icon . '</a>',
             '<a data-page="' . $page . '" data-ts="duedate" data-tdr="' . $tdrnew . '" href="#">' . get_string('duedate','block_newgu_spdetails') . $tdirdd_icon . '</a>',
             get_string('source', 'block_newgu_spdetails'),
@@ -170,6 +172,24 @@ class sduserdetailscurrent_table extends table_sql
         return $assessmenttype;
 
     }
+
+    function col_weight($values){
+
+        global $DB;
+  
+        $cmid = $values->id;
+        $modulename = $values->itemmodule;
+        $iteminstance = $values->iteminstance;
+        $courseid = $values->courseid;
+        $categoryid = $values->categoryid;
+  
+        $aggregationcoef = $values->aggregationcoef;
+        $aggregationcoef2 = $values->aggregationcoef2;
+  
+        $finalweight = get_weight($courseid,$categoryid,$aggregationcoef,$aggregationcoef2);
+        return $finalweight;
+  
+      }
 
     /**
      * @param $values

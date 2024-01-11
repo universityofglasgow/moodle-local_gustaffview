@@ -118,6 +118,7 @@ if ($str_itemsnotvisibletouser != "") {
 
 $table->no_sorting('assessment');
 $table->no_sorting('assessmenttype');
+$table->no_sorting('weight');
 $table->no_sorting('itemmodule');
 $table->no_sorting('duedate');
 $table->no_sorting('source');
