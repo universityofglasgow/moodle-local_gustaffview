@@ -33,3 +33,6 @@ $string['staffview_summary'] = 'Use this page to select and view the assignments
 $string['grade'] = 'Grade';
 $string['readytosubmit'] = 'To be submitted';
 $string['privacy:metadata'] = 'The Staff View Student Dashboard plugin does not store any personal data.';
+$string['oldgcat'] = 'GCAT';
+$string['newgcat'] = 'MyGrades';
+$string['regulargradebook'] = 'Gradebook';

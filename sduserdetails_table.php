@@ -260,21 +260,35 @@ class sduserdetailscurrent_table extends table_sql
     function col_includedingcat($values){
         global $DB;
         $courseid = $values->courseid;
-        $cfdvalue = 0;
-
-        $arr_customfield = $DB->get_record('customfield_field', array('shortname'=>'show_on_studentdashboard'));
-        $cffid = $arr_customfield->id;
-
-        $arr_customfielddata = $DB->get_record('customfield_data', array('fieldid'=>$cffid, 'instanceid'=>$courseid));
-
-        if (!empty($arr_customfielddata)) {
-            $cfdvalue = $arr_customfielddata->value;
+        // Check if MyGrades is enabled for this course?
+        $gugradesenabled = false;
+        $sqlname = $DB->sql_compare_text('name');
+        $sql = "SELECT * FROM {local_gugrades_config}
+            WHERE courseid = :courseid
+            AND $sqlname = :name
+            AND value = :value";
+        if ($DB->record_exists_sql($sql, ['courseid' => $courseid, 'name' => 'enabledashboard', 'value' => 1])) {
+            $gugradesenabled = true;
         }
 
-        if ($cfdvalue==1) {
-            return "Old GCAT";
+        // Check if (old) GCAT is enabled for this course?
+        $gcatenabled = false;
+        $sqlshortname = $DB->sql_compare_text('shortname');
+        $sql = "SELECT * FROM {customfield_data} cd
+            JOIN {customfield_field} cf ON cf.id = cd.fieldid
+            WHERE cd.instanceid = :courseid
+            AND cd.intvalue = 1
+            AND $sqlshortname = 'show_on_studentdashboard'";
+        if ($DB->record_exists_sql($sql, ['courseid' => $courseid])) {
+            $gcatenabled = true;
+        }
+
+        if ($gugradesenabled) {
+            return get_string('newgcat', 'local_gustaffview');
+        } elseif ($gcatenabled) {
+            return get_string('oldgcat', 'local_gustaffview');
         } else {
-            return "Gradebook";
+            return get_string('regulargradebook', 'local_gustaffview');
         }
     }
 
