@@ -54,7 +54,7 @@ $PAGE->set_heading($course->fullname);
 $PAGE->requires->jquery();
 
 $cntstaff = 0;
-$cntstaff = block_newgu_spdetails_external::checkrole($USER->id, $courseid);
+$cntstaff = \block_newgu_spdetails\api::checkrole($USER->id, $courseid);
 
 if (!is_siteadmin()) {
     if ($cntstaff == 0) {
@@ -77,7 +77,7 @@ $html .= html_writer::tag('label', 'Student: ', array('class' => 'col-md-2'));
 
 $studentoptions = [];
 $studentoptions[0] = "Select";
-$sql_enrolledstudents = block_newgu_spdetails_external::nogroupusers($courseid);
+$sql_enrolledstudents = \block_newgu_spdetails\api::nogroupusers($courseid);
 $student_ids = $DB->get_records_sql($sql_enrolledstudents);
 
 if (!empty($student_ids)) {

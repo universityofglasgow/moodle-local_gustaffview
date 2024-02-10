@@ -57,7 +57,7 @@ require_login($course);
 $context = context_course::instance($courseid);
 $PAGE->set_context($context);
 
-$currentcourses = block_newgu_spdetails_external::return_enrolledcourses($studentid, "current", "student");
+$currentcourses = \block_newgu_spdetails\course::return_enrolledcourses($studentid, "current", "student");
 $str_currentcourses = implode(",", $currentcourses);
 
 // FETCH LTI IDs TO BE INCLUDED
@@ -98,7 +98,7 @@ $bytes = random_bytes(5);
 $tableid = bin2hex($bytes);
 $table = new sduserdetailscurrent_table($tableid);
 
-$str_itemsnotvisibletouser = block_newgu_spdetails_external::fetch_itemsnotvisibletouser($studentid, $courseid);
+$str_itemsnotvisibletouser = \block_newgu_spdetails\api::fetch_itemsnotvisibletouser($studentid, $courseid);
 
 if ($str_currentcourses == "") {
     $str_currentcourses = "0";

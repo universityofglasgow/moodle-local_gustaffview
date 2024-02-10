@@ -26,7 +26,7 @@
  */
 
 require_once(dirname(dirname(__FILE__)).'../../config.php');
-global $CFG,$USER, $DB;
+global $CFG;
 
 require "$CFG->libdir/tablelib.php";
 
@@ -140,7 +140,7 @@ class sduserdetailscurrent_table extends table_sql
         $iteminstance = $values->iteminstance;
         $courseid = $values->courseid;
 
-        $cmid = block_newgu_spdetails_external::get_cmid($modulename, $courseid, $iteminstance);
+        $cmid = \block_newgu_spdetails\course::get_cmid($modulename, $courseid, $iteminstance);
 
         $link = $CFG->wwwroot . '/mod/' . $modulename . '/view.php?id=' . $cmid;
 
@@ -167,28 +167,17 @@ class sduserdetailscurrent_table extends table_sql
 
         $aggregationcoef = $values->aggregationcoef;
 
-        $assessmenttype = block_newgu_spdetails_external::return_assessmenttype($gradecategoryname, $aggregationcoef);
+        $assessmenttype = \block_newgu_spdetails\course::return_assessmenttype($gradecategoryname, $aggregationcoef);
 
         return $assessmenttype;
 
     }
 
-    function col_weight($values){
-
-        global $DB;
-  
-        $cmid = $values->id;
-        $modulename = $values->itemmodule;
-        $iteminstance = $values->iteminstance;
-        $courseid = $values->courseid;
-        $categoryid = $values->categoryid;
-  
+    function col_weight($values){  
         $aggregationcoef = $values->aggregationcoef;
-        $aggregationcoef2 = $values->aggregationcoef2;
-  
-        $finalweight = get_weight($courseid,$categoryid,$aggregationcoef,$aggregationcoef2);
+        $finalweight = \block_newgu_spdetails\course::return_weight($aggregationcoef);
+
         return $finalweight;
-  
       }
 
     /**
@@ -304,7 +293,7 @@ class sduserdetailscurrent_table extends table_sql
         $courseid = $values->courseid;
         $itemid = $values->id;
 
-        $gradestatus = block_newgu_spdetails_external::return_gradestatus($modulename, $iteminstance, $courseid, $itemid, $userid);
+        $gradestatus = \block_newgu_spdetails\grade::return_gradestatus($modulename, $iteminstance, $courseid, $itemid, $userid);
 
         $status = $gradestatus["status"];
         $finalgrade = $gradestatus["finalgrade"];
@@ -316,9 +305,9 @@ class sduserdetailscurrent_table extends table_sql
         if($status == 'notsubmitted'){
             $statustodisplay = '<span class="status-item">'.get_string('notsubmitted', 'block_newgu_spdetails').'</span> ';
         }
-        if($status == 'submitted'){
+        if($status == 'submitted' || $status == 'graded'){
             $statustodisplay = '<span class="status-item status-submitted">'. ucwords(trim(get_string('submitted', 'block_newgu_spdetails'))) . '</span> ';
-            if ($finalgrade!=Null) {
+            if ($finalgrade !== null) {
                 $statustodisplay = '<span class="status-item status-item status-graded">'.get_string('graded', 'block_newgu_spdetails').'</span>';
             }
         }
@@ -348,7 +337,7 @@ class sduserdetailscurrent_table extends table_sql
         $courseid = $values->courseid;
         $itemid = $values->id;
         $gradetype = $values->gradetype;
-        $arr_gradetodisplay = get_gradefeedback($modulename, $iteminstance, $courseid, $itemid, $userid, $values->grademax, $gradetype);
+        $arr_gradetodisplay = \block_newgu_spdetails\grade::get_gradefeedback($modulename, $iteminstance, $courseid, $itemid, $userid, $values->grademax, $gradetype);
         $gradetodisplay = $arr_gradetodisplay["gradetodisplay"];
 
         return $gradetodisplay;
@@ -367,7 +356,7 @@ class sduserdetailscurrent_table extends table_sql
         $itemid = $values->id;
         $gradetype = $values->gradetype;
 
-        $feedback = get_gradefeedback($modulename, $iteminstance, $courseid, $itemid, $userid, $values->grademax, $gradetype);
+        $feedback = \block_newgu_spdetails\grade::get_gradefeedback($modulename, $iteminstance, $courseid, $itemid, $userid, $values->grademax, $gradetype);
         $gradetodisplay = $feedback["gradetodisplay"];
 
         return $gradetodisplay;

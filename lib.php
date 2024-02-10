@@ -36,7 +36,7 @@
 function local_gustaffview_extend_navigation_course($parentnode, $course, $context) {
     if (has_capability('local/gustaffview:staffview', $context)) {
         global $USER;
-        $cntstaff = block_newgu_spdetails_external::checkrole($USER->id, $course->id);
+        $cntstaff = \block_newgu_spdetails\api::checkrole($USER->id, $course->id);
 
         if ($cntstaff != 1) {
             return;
