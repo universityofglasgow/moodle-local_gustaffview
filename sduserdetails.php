@@ -53,15 +53,6 @@ $PAGE->set_title($title);
 $PAGE->set_heading($course->fullname);
 $PAGE->requires->jquery();
 
-$cntstaff = 0;
-$cntstaff = \block_newgu_spdetails\api::checkrole($USER->id, $courseid);
-
-if (!is_siteadmin()) {
-    if ($cntstaff == 0) {
-        redirect($CFG->wwwroot);
-    }
-}
-
 $studentid = optional_param('studentid', '', PARAM_TEXT);
 if ($studentid == 0) {
     redirect("$CFG->wwwroot/local/gustaffview/sduserdetails.php?courseid=" . $courseid);
