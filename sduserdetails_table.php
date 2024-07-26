@@ -247,36 +247,17 @@ class sduserdetailscurrent_table extends table_sql
      * @return string
      */
     function col_includedingcat($values){
-        global $DB;
         $courseid = $values->courseid;
-        // Check if MyGrades is enabled for this course?
-        $gugradesenabled = false;
-        $sqlname = $DB->sql_compare_text('name');
-        $sql = "SELECT * FROM {local_gugrades_config}
-            WHERE courseid = :courseid
-            AND $sqlname = :name
-            AND value = :value";
-        if ($DB->record_exists_sql($sql, ['courseid' => $courseid, 'name' => 'enabledashboard', 'value' => 1])) {
-            $gugradesenabled = true;
-        }
+        $mygradesenabled = block_newgu_spdetails\course::is_type_mygrades($courseid);
+        $gcatenabled = block_newgu_spdetails\course::is_type_gcat($courseid);
 
-        // Check if (old) GCAT is enabled for this course?
-        $gcatenabled = false;
-        $sqlshortname = $DB->sql_compare_text('shortname');
-        $sql = "SELECT * FROM {customfield_data} cd
-            JOIN {customfield_field} cf ON cf.id = cd.fieldid
-            WHERE cd.instanceid = :courseid
-            AND cd.intvalue = 1
-            AND $sqlshortname = 'show_on_studentdashboard'";
-        if ($DB->record_exists_sql($sql, ['courseid' => $courseid])) {
-            $gcatenabled = true;
-        }
-
-        if ($gugradesenabled) {
+        if ($mygradesenabled) {
             return get_string('newgcat', 'local_gustaffview');
-        } elseif ($gcatenabled) {
+        }
+        if ($gcatenabled) {
             return get_string('oldgcat', 'local_gustaffview');
-        } else {
+        }
+        if (!$mygradesenabled && !$gcatenabled) {
             return get_string('regulargradebook', 'local_gustaffview');
         }
     }
