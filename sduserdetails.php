@@ -64,7 +64,7 @@ $html = '';
 $html .= html_writer::div(html_writer::tag('h1',$title),'',['id' => 'staffview']);
 $html .= html_writer::div(get_string('staffview_summary', 'local_gustaffview'),'',['id' => 'staffview_summary']);
 $html .= html_writer::start_tag('div', ['id' => 'student_block', 'class' => 'row m-4']);
-$html .= html_writer::tag('label', 'Student: ', array('class' => 'col-md-2'));
+$html .= html_writer::tag('label', 'Student: ', array('class' => 'col-md-2', 'for' => 'selectstudent'));
 
 $studentoptions = [];
 $studentoptions[0] = "Select";
