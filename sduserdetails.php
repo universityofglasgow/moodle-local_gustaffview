@@ -66,15 +66,15 @@ $html .= html_writer::div(get_string('staffview_summary', 'local_gustaffview'),'
 $html .= html_writer::start_tag('div', ['id' => 'student_block', 'class' => 'row m-4']);
 $html .= html_writer::tag('label', 'Student: ', array('class' => 'col-md-2', 'for' => 'selectstudent'));
 
+$enrolledstudents = get_enrolled_users($context, 'moodle/grade:view', 0, 'u.id, u.firstname, u.lastname',  null, 0, 0, true);
+
 $studentoptions = [];
 $studentoptions[0] = "Select";
-$sql_enrolledstudents = \block_newgu_spdetails\api::nogroupusers($courseid);
-$student_ids = $DB->get_records_sql($sql_enrolledstudents);
 
-if (!empty($student_ids)) {
-    foreach ($student_ids as $student_id) {
-        $studentid = $student_id->userid;
-        $studentname = $student_id->firstname . " " . $student_id->lastname;
+if (!empty($enrolledstudents)) {
+    foreach ($enrolledstudents as $enrolledstudent) {
+        $studentid = $enrolledstudent->id;
+        $studentname = $enrolledstudent->firstname . " " . $enrolledstudent->lastname;
         $studentoptions[$studentid] = $studentname;
     }
 }
