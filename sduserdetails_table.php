@@ -249,15 +249,11 @@ class sduserdetailscurrent_table extends table_sql
     function col_includedingcat($values){
         $courseid = $values->courseid;
         $mygradesenabled = block_newgu_spdetails\course::is_type_mygrades($courseid);
-        $gcatenabled = block_newgu_spdetails\course::is_type_gcat($courseid);
 
         if ($mygradesenabled) {
-            return get_string('newgcat', 'local_gustaffview');
+            return get_string('mygradesenabled', 'local_gustaffview');
         }
-        if ($gcatenabled) {
-            return get_string('oldgcat', 'local_gustaffview');
-        }
-        if (!$mygradesenabled && !$gcatenabled) {
+        if (!$mygradesenabled) {
             return get_string('regulargradebook', 'local_gustaffview');
         }
     }
